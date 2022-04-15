@@ -1,11 +1,11 @@
-export function visibilityFilterCreater(filter) {
+export function visibilityFilterCreator(filter) {
   return {
     type: 'SET_VISIBILITY_FILTER',
     filter
   }
 }
 
-export function completedCreater(index, completed) {
+export function completedCreator(index, completed) {
   return {
     type: 'SET_ITEM_COMPLETED',
     index,
@@ -13,7 +13,7 @@ export function completedCreater(index, completed) {
   }
 }
 
-export function addTodoCreater(text) {
+export function addTodoCreator(text) {
   return {
     type: 'ADD_ITEM',
     text

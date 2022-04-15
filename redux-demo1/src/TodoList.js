@@ -3,12 +3,12 @@ import 'antd/dist/antd.css'
 import { Checkbox, Input, Button } from 'antd';
 
 import store from './store'
-import { visibilityFilterCreater, addTodoCreater, completedCreater } from './store/actionsCreater'
+import { visibilityFilterCreator, addTodoCreator, completedCreator } from './store/actionsCreator'
 class TodoList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      store: {
+      stateFromStore: {
         ...store.getState(),
       },
       inputValue: ''
@@ -19,19 +19,20 @@ class TodoList extends Component {
   }
   storeChange() {
     this.setState({
-      store: {
+      stateFromStore: {
         ...store.getState()
       }
     })
   }
   addTodo() {
-
-    console.log(this.state)
-    store.dispatch(addTodoCreater(this.state.inputValue))
+    store.dispatch(addTodoCreator(this.state.inputValue))
+    this.setState({
+      inputValue: ''
+    })
   }
   changeComplete(index, item) {
     console.log(item, index)
-    store.dispatch(completedCreater(index, !item.completed))
+    store.dispatch(completedCreator(index, !item.completed))
   }
   changeInputValue(e) {
     this.setState({
@@ -42,12 +43,12 @@ class TodoList extends Component {
     return (
       <Fragment>
         <div>
-          <Input onChange={this.changeInputValue} style={{ width: "200px", margin: "20px" }}></Input>
+          <Input value={this.state.inputValue} onChange={this.changeInputValue} style={{ width: "200px", margin: "20px" }}></Input>
           <Button onClick={this.addTodo} type='primary'>增加</Button>
         </div>
         <div>
           <ul>
-            {this.state.store.list.map((item, index) => {
+            {this.state.stateFromStore.list.map((item, index) => {
               return <Checkbox key={index} onChange={this.changeComplete.bind(this, index, item)} checked={item.completed}>{item.text}</Checkbox>
             })}
           </ul>
